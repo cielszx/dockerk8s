@@ -15,7 +15,7 @@ spec:
         release: v1
     spec:
       containers:
-      - image: gcr.io/google-samples/hello-app:1.0
+      - image: cielszx/sba-frontend:v3
         imagePullPolicy: IfNotPresent
         name: facebook-app
         ports:
