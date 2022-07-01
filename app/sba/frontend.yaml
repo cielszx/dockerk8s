@@ -20,7 +20,7 @@ spec:
       containers:
       - image: brainupgrade/sba-frontend:base
         name: sba-frontend
-        Environment:
-          REACT_APP_API_URL:  https://scbcepb3u8-app.brainupgrade.net/api/
-        resources: {}
+        env:
+        - name: REACT_APP_API_URL
+          value: "https://scbcepb3u8-app.brainupgrade.net/api/"
 status: {}

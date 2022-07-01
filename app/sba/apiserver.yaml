@@ -20,7 +20,7 @@ spec:
       containers:
       - image: brainupgrade/sba-apiserver:1.0.0
         name: sba-apiserver
-        Environment:
-          spring.datasource.url:  jdbc:postgresql://postgres:5432/app
-        resources: {}
+        env:
+        - name: spring.datasource.url
+          value: "jdbc:postgresql://postgres:5432/app"
 status: {}
