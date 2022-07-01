@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: facebook-v2
+  name: facebook-v1
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: facebook
-      release: v2
+      release: v1
   strategy: {}
   template:
     metadata:
       creationTimestamp: null
       labels:
         app: facebook
-        release: v2
+        release: v1
     spec:
       containers:
       - image: cielszx/sba-frontend:v3
