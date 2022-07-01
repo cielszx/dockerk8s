@@ -8,23 +8,18 @@ spec:
     matchLabels:
       app: facebook
       release: v2
+  strategy: {}
   template:
     metadata:
+      creationTimestamp: null
       labels:
         app: facebook
         release: v2
     spec:
       containers:
       - image: cielszx/sba-frontend:blue
-        imagePullPolicy: IfNotPresent
-        name: facebook-app
-        ports:
-        - containerPort: 8080
-          protocol: TCP
-        resources: 
-          limits:
-            cpu: 10m
-            memory: 30Mi
-          requests:
-            cpu: 10m
-            memory: 30Mi  
+        name: sba-frontend
+        env:
+        - name: REACT_APP_API_URL
+          value: "https://scbcepb3u8-app.brainupgrade.net/api/"
+status: {}
