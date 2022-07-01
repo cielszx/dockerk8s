@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: apiserver
+  name: apiserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apiserver
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: apiserver
+    spec:
+      containers:
+      - image: brainupgrade/sba-apiserver:1.0.0
+        name: sba-apiserver
+        Environment:
+          spring.datasource.url:  jdbc:postgresql://postgres:5432/app
+        resources: {}
+status: {}
