@@ -23,4 +23,28 @@ spec:
         env:
         - name: spring.datasource.url
           value: "jdbc:postgresql://postgres:5432/app"
+        startupProbe:
+          httpGet:
+            path: /
+            port: 80
+          failureThreshold: 5
+          successThreshold: 1
+          periodSeconds: 10
+          initialDelaySeconds: 9
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 0
+          periodSeconds: 20
+          successThreshold: 1
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 0
+          periodSeconds: 5
+          successThreshold: 1
+          failureThreshold: 1
 status: {}
