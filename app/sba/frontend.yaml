@@ -25,7 +25,7 @@ spec:
           value: "https://scbcepb3u8-app.brainupgrade.net/api/"
         startupProbe:
           httpGet:
-            path: /healthz
+            path: /
             port: 80
           failureThreshold: 5
           successThreshold: 1
@@ -33,7 +33,7 @@ spec:
           initialDelaySeconds: 9
         livenessProbe:
           httpGet:
-            path: /healthz
+            path: /
             port: 80
           initialDelaySeconds: 0
           periodSeconds: 20
@@ -41,7 +41,7 @@ spec:
           failureThreshold: 3
         readinessProbe:
           httpGet:
-            path: /healthz
+            path: /
             port: 80
           initialDelaySeconds: 0
           periodSeconds: 5
