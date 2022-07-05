@@ -15,7 +15,8 @@ spec:
   type: ClusterIP
 ---  
 apiVersion: apps/v1
-kind: Deployment
+kind: Dep
+loyment
 metadata:
   name: frontend
 spec:
