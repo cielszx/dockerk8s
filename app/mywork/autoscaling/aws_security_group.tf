@@ -1,8 +1,8 @@
 #INBOUND RULES => INGRESS
 #OUTBOUND RULES => EGRESS
 
-resource "aws_security_group" "kushagra-vpc-sg" {
-    vpc_id = aws_vpc.kushagra-vpc.id
+resource "aws_security_group" "zhenxing-vpc-sg" {
+    vpc_id = aws_vpc.zhenxing-vpc.id
   egress {
     from_port   = 0
     to_port     = 0
@@ -38,6 +38,6 @@ resource "aws_security_group" "kushagra-vpc-sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags={
-    Name = "kushagra-vpc-sg-main"
+    Name = "zhenxing-vpc-sg-main"
   }
 }
