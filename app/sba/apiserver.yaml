@@ -17,34 +17,20 @@ spec:
       labels:
         app: apiserver
     spec:
+      affinity:
+          podAntiAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                  matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                    - frontend
+              topologyKey: kubernetes.io/hostname
       containers:
       - image: cielszx/sba:v2
         name: sba-apiserver
         env:
         - name: spring.datasource.url
           value: "jdbc:postgresql://postgres:5432/app"
-        # startupProbe:
-        #   httpGet:
-        #     path: /
-        #     port: 8080
-        #   failureThreshold: 5
-        #   successThreshold: 1
-        #   periodSeconds: 10
-        #   initialDelaySeconds: 9
-        # livenessProbe:
-        #   httpGet:
-        #     path: /
-        #     port: 8080
-        #   initialDelaySeconds: 0
-        #   periodSeconds: 20
-        #   successThreshold: 1
-        #   failureThreshold: 3
-        # readinessProbe:
-        #   httpGet:
-        #     path: /
-        #     port: 8080
-        #   initialDelaySeconds: 0
-        #   periodSeconds: 5
-        #   successThreshold: 1
-        #   failureThreshold: 1
 status: {}
