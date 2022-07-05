@@ -1,38 +1,21 @@
-# 2 - weather services
-apiVersion: v1
-kind: Service
-metadata:
-  name: weather-services
-  # namespace: weather
-spec:
-  type: ClusterIP
-  ports:
-    - name: services
-      port: 80
-      targetPort: 8080
-  selector:
-    app: weather
-    tier: services
----
-# microservices components 2 - api services
+# microservices components 1 - front
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: weather-services
-  name: weather-services
-  # namespace: weather
+    app: sba
+  name: sba-front
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: weather
-      tier: services
+      app: sba
+      tier: front
   template:
     metadata:
       labels:
-        app: weather
-        tier: services
+        app: sba
+        tier: front
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "8888"
@@ -47,19 +30,44 @@ spec:
         volumeMounts: 
         - mountPath: /elastic/apm/agent 
           name: elastic-apm-agent 
-        command: ['cp', '-v', '/usr/agent/elastic-apm-agent.jar', '/elastic/apm/agent']     
+        command: ['cp', '-v', '/usr/agent/elastic-apm-agent.jar', '/elastic/apm/agent']    
       containers:
-        - image: brainupgrade/weather-services:metrics
+        - image: cielszx/sba-frontend:v3
           imagePullPolicy: Always
-          name: weather-services
+          name: sba-front
+          resources:
+            limits:
+              cpu: 1
+              memory: 2048Mi
+            requests:
+              cpu: 0.5
+              memory: 1500Mi  
           volumeMounts: 
           - mountPath: /elastic/apm/agent 
             name: elastic-apm-agent          
           env:
             - name: spring.application.name
-              value: weather-services-zhenxing
-            - name: server.port
-              value: "8080"
+              value: sba-front-zhenxing
+            - name: spring.datasource.url
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: spring.datasource.url
+            - name: spring.datasource.username
+              valueFrom:
+                secretKeyRef:
+                  name: app-secret
+                  key: spring.datasource.username
+            - name: spring.datasource.password
+              valueFrom:
+                secretKeyRef:
+                  name: app-secret
+                  key: spring.datasource.password
+            - name: REACT_APP_API_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: apiServiceURL
             - name: ELASTIC_APM_SERVER_URL 
               valueFrom:
                 configMapKeyRef:
@@ -71,13 +79,13 @@ spec:
                   name: app-config
                   key: ELASTIC_APM_APPLICATION_PACKAGES
             - name: ELASTIC_APM_SERVICE_NAME 
-              value: "weather-services-zhenxing" 
+              value: "sba-front-zhenxing" 
             - name: ELASTIC_APM_ENVIRONMENT 
               value: prod
             - name: ELASTIC_APM_LOG_LEVEL 
               value: DEBUG 
             - name: JAVA_TOOL_OPTIONS 
-              value: -javaagent:/elastic/apm/agent/elastic-apm-agent.jar               
+              value: -javaagent:/elastic/apm/agent/elastic-apm-agent.jar  
             - name: management.endpoints.web.exposure.include
               value: "*"
             - name: management.server.port
@@ -85,6 +93,20 @@ spec:
             - name: management.metrics.web.server.request.autotime.enabled
               value: "true"
             - name: management.metrics.tags.application
-              value: weather-services-zhenxing         
+              value: sba-front-zhenxing
           ports:
             - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: weather-front
+spec:
+  type: ClusterIP
+  ports:
+    - name: app
+      port: 80
+      targetPort: 8080
+  selector:
+    app: weather
+    tier: front      

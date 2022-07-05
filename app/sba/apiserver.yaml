@@ -18,33 +18,33 @@ spec:
         app: apiserver
     spec:
       containers:
-      - image: brainupgrade/sba-apiserver:1.0.0
+      - image: cielszx/sba:v2
         name: sba-apiserver
         env:
         - name: spring.datasource.url
           value: "jdbc:postgresql://postgres:5432/app"
-        startupProbe:
-          httpGet:
-            path: /
-            port: 8080
-          failureThreshold: 5
-          successThreshold: 1
-          periodSeconds: 10
-          initialDelaySeconds: 9
-        livenessProbe:
-          httpGet:
-            path: /
-            port: 8080
-          initialDelaySeconds: 0
-          periodSeconds: 20
-          successThreshold: 1
-          failureThreshold: 3
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 8080
-          initialDelaySeconds: 0
-          periodSeconds: 5
-          successThreshold: 1
-          failureThreshold: 1
+        # startupProbe:
+        #   httpGet:
+        #     path: /
+        #     port: 8080
+        #   failureThreshold: 5
+        #   successThreshold: 1
+        #   periodSeconds: 10
+        #   initialDelaySeconds: 9
+        # livenessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: 8080
+        #   initialDelaySeconds: 0
+        #   periodSeconds: 20
+        #   successThreshold: 1
+        #   failureThreshold: 3
+        # readinessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: 8080
+        #   initialDelaySeconds: 0
+        #   periodSeconds: 5
+        #   successThreshold: 1
+        #   failureThreshold: 1
 status: {}

@@ -72,4 +72,4 @@ kubectl apply -f https://raw.githubusercontent.com/brainupgrade-in/dockerk8s/mai
 
 # Publish App to the internet - Ingress
 
-Update ingress by routing URL requests to weather-front service & verify the app is working
+Update ingress by routing URL requests to weather-front service & verify the app is working 
