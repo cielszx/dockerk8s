@@ -44,13 +44,13 @@ spec:
       #               values:
       #               - frontend
       #         topologyKey: kubernetes.io/hostname
-      # topologySpreadConstraints:
-      # - maxSkew: 1
-      #   topologyKey: topology.kubernetes.io/zone
-      #   whenUnsatisfiable: DoNotSchedule
-      #   labelSelector:
-      #     matchLabels:
-      #       app: apiserver
+      topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app: apiserver
       volumes: 
       - name: elastic-apm-agent 
         emptyDir: {}    
@@ -62,7 +62,7 @@ spec:
           name: elastic-apm-agent 
         command: ['cp', '-v', '/usr/agent/elastic-apm-agent.jar', '/elastic/apm/agent']     
       containers:
-      - image: cielszx/sba:sqsses
+      - image: cielszx/sba:sqssesv2
         name: sba-apiserver
         imagePullPolicy: Always
         volumeMounts: 
