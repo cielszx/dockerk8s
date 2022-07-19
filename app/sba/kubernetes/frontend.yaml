@@ -29,7 +29,7 @@ spec:
         app: frontend
     spec:
       containers:
-      - image: cielszx/sba-frontend:nginx
+      - image: kushagratandon12/sba_frontend:nginx
         name: frontend
         imagePullPolicy: Always
         ports:
