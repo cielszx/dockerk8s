@@ -62,7 +62,7 @@ spec:
           name: elastic-apm-agent 
         command: ['cp', '-v', '/usr/agent/elastic-apm-agent.jar', '/elastic/apm/agent']     
       containers:
-      - image: cielszx/sba:sqssesv2
+      - image: hub.brainupgrade.net/zhenxing/apiserver:all
         name: sba-apiserver
         imagePullPolicy: Always
         volumeMounts: 
